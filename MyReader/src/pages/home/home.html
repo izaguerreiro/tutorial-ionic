@@ -7,13 +7,25 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher> 
   <ion-list>
-    <ion-item *ngFor="let feed of feeds" (click)="itemSelected(feed.data.url)">
+    <button ion-item *ngFor="let feed of feeds" (click)="itemSelected(feed.data.url)">
       <ion-avatar item-left>
-          <img [src]="feed.data.thumbnail">
-       </ion-avatar>
-       <h2>{{feed.data.title}}</h2>
-       <p>{{feed.data.domain}}</p>
-    </ion-item>
+        <img [src]="feed.data.thumbnail">
+      </ion-avatar>
+      <h2>{{feed.data.title}}</h2>
+      <p>{{feed.data.domain}}</p>
+    </button>
   </ion-list>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll> 
 </ion-content>
